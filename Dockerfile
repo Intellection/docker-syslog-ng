@@ -8,7 +8,9 @@ RUN echo '@edge-main http://dl-cdn.alpinelinux.org/alpine/edge/main/' >> /etc/ap
     apk update && \
     apk upgrade && \
     apk add \
+      tini \
       openssl \
       syslog-ng@edge-main=${SYSLOG_NG_VERSION}
 
-ENTRYPOINT ["/usr/sbin/syslog-ng", "--foreground"]
+ENTRYPOINT ["tini", "--"]
+CMD ["syslog-ng", "--foreground"]
