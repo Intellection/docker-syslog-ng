@@ -16,4 +16,4 @@ dependencies:
 
 test:
   override:
-    - docker run $IMAGE_NAME --version
+    - docker run $IMAGE_NAME syslog-ng --version
