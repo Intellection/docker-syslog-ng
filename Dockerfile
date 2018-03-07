@@ -2,10 +2,13 @@ FROM alpine:3.7
 
 LABEL maintainer "Zappi DevOps <devops@zappistore.com>"
 
-ARG SYSLOG_NG_VERSION="3.7.2-r3"
+ARG SYSLOG_NG_VERSION="3.13.2-r0"
 
-RUN apk --update add \
-  openssl \
-  syslog-ng=${SYSLOG_NG_VERSION}
+RUN echo '@edge-main http://dl-cdn.alpinelinux.org/alpine/edge/main/' >> /etc/apk/repositories && \
+    apk update && \
+    apk upgrade && \
+    apk add \
+      openssl \
+      syslog-ng@edge-main=${SYSLOG_NG_VERSION}
 
 ENTRYPOINT ["/usr/sbin/syslog-ng", "--foreground"]
